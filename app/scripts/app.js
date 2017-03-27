@@ -2,10 +2,12 @@
 
 angular.module('confusionApp', [])
 
-    .controller('menuController', function () {
+    .controller('MenuController', ['$scope', function ($scope) {
 
-        this.lab = 1;
-        this.filtText = '';
+        $scope.lab = 1;
+        $scope.filtText = '';
+        $scope.showDetails = false;
+
         var dishes = [
             {
                 name: 'Uthapizza',
@@ -44,24 +46,27 @@ angular.module('confusionApp', [])
                 comment: ''
             }
         ];
-        this.dishes = dishes;
-        this.select = function (setTab) {
+        $scope.dishes = dishes;
+        $scope.select = function (setTab) {
             if (setTab === 2) {
-                this.filtText = "appetizer";
+                $scope.filtText = "appetizer";
             } else if (setTab === 3) {
-                this.filtText = "mains";
+                $scope.filtText = "mains";
             } else if (setTab === 4) {
-                this.filtText = "dessert";
+                $scope.filtText = "dessert";
             } else {
-                this.filtText = "";
+                $scope.filtText = "";
             }
 
-            this.tab = setTab;
+            $scope.tab = setTab;
         };
-        this.isSelected = function (getTab) {
-            if (this.tab === getTab) {
+        $scope.isSelected = function (getTab) {
+            if ($scope.tab === getTab) {
                 return true;
             }
             return false;
         };
-    });
+        $scope.toggleDetails = function() {
+            $scope.showDetails = !$scope.showDetails;
+        }
+    }]);
